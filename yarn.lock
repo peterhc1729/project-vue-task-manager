@@ -1360,6 +1360,11 @@ vue@^3.5.34:
     "@vue/server-renderer" "3.5.34"
     "@vue/shared" "3.5.34"
 
+vuetify@^4.0.7:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-4.0.7.tgz#ff6b1f41b01f7fe1875e60491ed39e981aa5f430"
+  integrity sha512-SV+YJkBmudY3s9qfZO2ZGUsrD0TDQU8pMBH1ERga9AEyjGvioZuXXh93V9wHxXJphvqRC2NW10Nt2lW9IZQcPw==
+
 webpack-virtual-modules@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/webpack-virtual-modules/-/webpack-virtual-modules-0.6.2.tgz#057faa9065c8acf48f24cb57ac0e77739ab9a7e8"
