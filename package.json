@@ -5,6 +5,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "@supabase/supabase-js": "^2.106.1",
     "pinia": "^3.0.4",
     "pinia-plugin-persist": "^1.0.0",
