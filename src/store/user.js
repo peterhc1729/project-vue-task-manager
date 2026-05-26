@@ -11,39 +11,31 @@ export const useUserStore = defineStore("user", {
   actions: {
     // fetching the currently logged-in user from Supabase
     async fetchUser() {
-      const user = await supabase.auth.user();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       this.user = user;
     },
 
     // signing up a new user with email and password
+
     async signUp(email, password) {
-      const { user, error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password,
       });
       if (error) throw error; // throw error if sign up fails
-      if (user) this.user = user; // saving user to store if sign up succeeds
-    },
-
-    // persisting the user store to localStorage so the user stays logged in
-    persist: {
-      enabled: true,
-      strategies: [
-        {
-          key: "user", // key used to store the user in localStorage
-          storage: localStorage,
-        },
-      ],
+      if (data.user) this.user = data.user; // saving user to store if sign up succeeds
     },
 
     // signing in an existing user with email and password
     async signIn(email, password) {
-      const { user, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: password,
       });
       if (error) throw error; // throw error if sign in fails
-      if (user) this.user = user; // saving user to store if sign in succeeds
+      if (data.user) this.user = data.user; // saving user to store if sign in succeeds
     },
 
     // Sign out the currently logged-in user
@@ -52,5 +44,15 @@ export const useUserStore = defineStore("user", {
       if (error) throw error; // throw error if sign out fails
       this.user = null; // resetting user to null after sign out
     },
+  },
+  // persisting the user store to localStorage so the user stays logged in
+  persist: {
+    enabled: true,
+    strategies: [
+      {
+        key: "user", // key used to store the user in localStorage
+        storage: localStorage,
+      },
+    ],
   },
 });

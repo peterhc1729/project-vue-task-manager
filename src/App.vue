@@ -1,8 +1,9 @@
 <template>
-  <section>
-    <router-view class="app-main" />
-    <!-- routes load inside of these tags -->
-  </section>
+  <v-app>
+    <section>
+      <router-view class="app-main" />
+    </section>
+  </v-app>
 </template>
 
 <script setup>

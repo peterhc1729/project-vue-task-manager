@@ -5,7 +5,7 @@
       <!-- Slot to prepend content to the left of the list item -->
       <template #prepend>
         <!-- Checkbox for completed task -->
-        <v-checkbox v-model="isCompleted" hide-details />
+        <v-checkbox v-model="isCompleted" hide-details color="indigo" />
       </template>
 
       <!-- Task name and date-->
@@ -35,7 +35,7 @@
 import { ref } from "vue";
 
 // receiving task object from the parent component
-const props = defineProps({
+defineProps({
   task: {
     type: Object,
     required: true,
