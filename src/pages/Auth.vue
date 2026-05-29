@@ -1,6 +1,11 @@
+<script setup>
+import SignUp from "../components/SignUp.vue";
+</script>
+
 <template>
-  <!--SignIn and SignUp to be inserted later on-->
   <div>
-    <h1>Auth</h1>
+    <SignUp />
   </div>
 </template>
+
+<style></style>
