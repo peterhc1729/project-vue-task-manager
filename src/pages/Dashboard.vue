@@ -22,7 +22,7 @@ const taskFilter = ref("All");
     <v-row>
       <!-- Button occupies 3 out of 12 grid columns (left side) -->
       <v-col cols="3">
-        <v-btn color="indigo">Add Task</v-btn>
+        <v-btn>Add Task</v-btn>
       </v-col>
       <!-- Filter takes 3 out of 12 grid columns, offset by 6 columns (right side) -->
       <v-col cols="3" offset="6">

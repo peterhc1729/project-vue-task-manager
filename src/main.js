@@ -21,6 +21,18 @@ const vuetify = createVuetify({
   },
 });
 
+const vuetify = createVuetify({
+  theme: {
+    themes: {
+      light: {
+        colors: {
+          primary: "#4f7cff",
+        },
+      },
+    },
+  },
+});
+
 // registering Pinia for state management
 app.use(createPinia());
 // registering Vue Router for navigation

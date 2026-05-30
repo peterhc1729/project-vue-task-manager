@@ -32,6 +32,7 @@ const signIn = async () => {
 
 <template>
   <div>
+    <!-- Vuetify utility: padding 32px on ALL sides of the div element-->
     <h1>Sign In</h1>
 
     <v-form>
@@ -41,7 +42,7 @@ const signIn = async () => {
 
       <p v-if="errorMessage">{{ errorMessage }}</p>
       <!--Button not active, if loading.value === true -->
-      <v-btn class="mb-6" @click="signIn" :disabled="loading">
+      <v-btn class="ml-0.9 mb-6" @click="signIn" :disabled="loading">
         {{ loading ? "Loading..." : "Sign in" }}
       </v-btn>
     </v-form>
