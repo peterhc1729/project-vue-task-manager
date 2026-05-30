@@ -1,8 +1,10 @@
 <script setup>
 import { ref } from "vue";
 import { useUserStore } from "../store/user";
+import { useRouter } from "vue-router";
 
 const userStore = useUserStore();
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
@@ -19,6 +21,7 @@ const signIn = async () => {
   try {
     loading.value = true;
     await userStore.signIn(email.value, password.value);
+    router.push({ path: "/" }); // redirect to dashboard
   } catch (error) {
     errorMessage.value = error.message;
   } finally {

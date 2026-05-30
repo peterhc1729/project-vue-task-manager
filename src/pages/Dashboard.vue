@@ -1,4 +1,14 @@
+<script setup>
+import { ref } from "vue";
+import Nav from "../components/Nav.vue";
+import TaskItem from "../components/TaskItem.vue";
+
+// Current value of dropdown; "All" as default
+const taskFilter = ref("All");
+</script>
+
 <template>
+  <Nav />
   <v-container>
     <v-row justify="center">
       <!-- Column spans the full width (12 out of 12 grid columns) -->
@@ -35,14 +45,6 @@
     </v-row>
   </v-container>
 </template>
-
-<script setup>
-import { ref } from "vue";
-import TaskItem from "../components/TaskItem.vue";
-
-// Current value of dropdown; "All" as default
-const taskFilter = ref("All");
-</script>
 
 <style>
 .v-application {

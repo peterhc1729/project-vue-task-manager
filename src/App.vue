@@ -13,8 +13,9 @@ import { useRouter } from "vue-router";
 import { useUserStore } from "./store/user.js";
 
 const router = useRouter();
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
+const userStore = useUserStore(); //Pinia store
+const { user } = storeToRefs(userStore); // user is either null (not logged in)
+// or a Supabase user object
 
 onMounted(async () => {
   try {
@@ -24,7 +25,7 @@ onMounted(async () => {
       router.push({ path: "/auth" }); //user not logged in
     } else {
       // continue to dashboard, if user is logged in
-      router.push({ path: "/" });
+      router.push({ path: "/" }); // redirected to dashboard
     }
   } catch (e) {
     console.log(e);
