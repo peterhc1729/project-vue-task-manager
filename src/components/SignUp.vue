@@ -50,11 +50,11 @@ const signUp = async () => {
       />
       <p v-if="errorMessage">{{ errorMessage }}</p>
       <!--Button not active, if loading.value === true -->
-      <v-btn @click="signUp" :disabled="loading">
+      <v-btn class="mb-6" @click="signUp" :disabled="loading">
         {{ loading ? "Loading..." : "Sign up" }}
       </v-btn>
     </v-form>
   </div>
 </template>
 
-<style></style>
+<style scoped></style>
