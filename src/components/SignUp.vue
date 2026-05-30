@@ -23,6 +23,7 @@ const signUp = async () => {
 
   try {
     loading.value = true;
+    // call the signUp action from the user store with the email and password
     await userStore.signUp(email.value, password.value);
     errorMessage.value =
       "Please check your email and click the confirmation link.";
@@ -47,12 +48,12 @@ const signUp = async () => {
         type="password"
         v-model="confirmPassword"
       />
+      <p v-if="errorMessage">{{ errorMessage }}</p>
+      <!--Button not active, if loading.value === true -->
       <v-btn @click="signUp" :disabled="loading">
         {{ loading ? "Loading..." : "Sign up" }}
       </v-btn>
     </v-form>
-
-    <p v-if="errorMessage">{{ errorMessage }}</p>
   </div>
 </template>
 
