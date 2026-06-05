@@ -45,10 +45,12 @@ const isCompleted = ref(false);
   </v-card>
 </template>
 
-<style>
-/* distance between cards */
+<style scoped>
 .task-card {
+  /* distance between cards */
   margin-bottom: 0.625rem;
+  border: 1px solid rgb(var(--v-theme-brandGold)) !important;
+  box-shadow: none !important;
 }
 
 /*Strikethrough text for completed tasks*/
