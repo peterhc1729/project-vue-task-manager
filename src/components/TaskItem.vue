@@ -1,3 +1,17 @@
+<script setup>
+import { ref } from "vue";
+
+// receiving task object from the parent component
+defineProps({
+  task: {
+    type: Object,
+    required: true,
+  },
+});
+
+const isCompleted = ref(false);
+</script>
+
 <template>
   <!-- A single Todo-Card -->
   <v-card class="task-card">
@@ -5,7 +19,7 @@
       <!-- Slot to prepend content to the left of the list item -->
       <template #prepend>
         <!-- Checkbox for completed task -->
-        <v-checkbox v-model="isCompleted" hide-details color="indigo" />
+        <v-checkbox v-model="isCompleted" hide-details color="secondary" />
       </template>
 
       <!-- Task name and date-->
@@ -30,20 +44,6 @@
     </v-list-item>
   </v-card>
 </template>
-
-<script setup>
-import { ref } from "vue";
-
-// receiving task object from the parent component
-defineProps({
-  task: {
-    type: Object,
-    required: true,
-  },
-});
-
-const isCompleted = ref(false);
-</script>
 
 <style>
 /* distance between cards */

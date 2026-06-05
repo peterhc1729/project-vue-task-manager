@@ -1,4 +1,5 @@
 <script setup>
+//import heptagonIronhaeck from "@/assets/ironhaeck-heptagon.png";
 import SignUp from "../components/SignUp.vue";
 import SignIn from "../components/SignIn.vue";
 import { ref } from "vue";
@@ -7,6 +8,9 @@ const authView = ref(0); // 0 = SignIn, 1 = SignUp
 </script>
 
 <template>
+  <div>
+    <!--<img :src="heptagonIronhaeck" alt="IronHäck Logo" />-->
+  </div>
   <v-container>
     <v-card>
       <!-- v-card-text adds default padding-->
@@ -23,17 +27,20 @@ const authView = ref(0); // 0 = SignIn, 1 = SignUp
           </v-window-item>
         </v-window>
 
-        <div>
+        <div class="auth-btns">
           <div v-if="authView === 0">
             Not registered yet?
-            <v-btn variant="text" color="" @click="authView = 1">
-              Sign up here
-            </v-btn>
+            <!--".prevent" stops the browser from jumping to the top-->
+            <a href="#" class="auth-link" @click.prevent="authView = 1"
+              >Sign up here</a
+            >
           </div>
 
           <div v-else>
             Already have an account?
-            <v-btn variant="text" @click="authView = 0"> Sign in </v-btn>
+            <a href="#" class="auth-link" @click.prevent="authView = 0"
+              >Sign in</a
+            >
           </div>
         </div>
       </v-card-text>
@@ -42,16 +49,71 @@ const authView = ref(0); // 0 = SignIn, 1 = SignUp
 </template>
 
 <style scoped>
+.v-window {
+  overflow: visible;
+  width: 100%;
+}
+
 .v-container {
-  min-height: 100vh;
+  border: 4px solid greenyellow;
   display: flex;
   justify-content: center;
+  width: 50vw;
+  min-height: 100vh;
   align-items: center;
+  margin: 0;
 }
 
 .v-card {
-  height: 70vh;
+  height: 62vh;
   max-width: 80vw;
-  width: 100%;
+  width: 50%;
+}
+
+.v-card-text {
+  border: 4px solid rgb(249, 244, 99);
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.auth-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.auth-btns > div {
+  border: 4px solid rgb(231, 96, 12);
+  padding: 0;
+  margin: 0;
+}
+
+.auth-link {
+  color: rgb(var(--v-theme-brandGold));
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+}
+
+.v-window-item {
+  border: 4px solid rgb(80, 15, 72);
+  margin: 0;
+  padding: 0;
+}
+
+:deep(.v-window) {
+  padding: 0 !important;
+}
+
+:deep(.v-window-item) {
+  padding: 0 !important;
 }
 </style>

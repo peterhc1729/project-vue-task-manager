@@ -41,8 +41,14 @@ const signIn = async () => {
       <v-text-field label="Password" type="password" v-model="password" />
 
       <p v-if="errorMessage">{{ errorMessage }}</p>
+
       <!--Button not active, if loading.value === true -->
-      <v-btn class="ml-3 mb-6" @click="signIn" :disabled="loading">
+      <v-btn
+        class="w-100 mb-6"
+        color="primary"
+        @click="signIn"
+        :disabled="loading"
+      >
         {{ loading ? "Loading..." : "Sign in" }}
       </v-btn>
     </v-form>

@@ -22,7 +22,17 @@ const vuetify = createVuetify({
     themes: {
       light: {
         colors: {
-          primary: "#4f7cff",
+          primary: "#5fffaf",
+          secondary: "#18714b",
+          tertiary: "#0e2d93",
+          brandWhite: "#fffeff",
+          brandBlack: "#000100",
+          brandViolett: "#8883e4",
+          appGreen2: "#8af361",
+          brandGold: "#d9a520",
+          quaternary: "#c0f9be",
+          brandSilver: "#585858",
+          error: "#f63d13",
         },
       },
     },
