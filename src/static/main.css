@@ -22,5 +22,15 @@ body {
 }
 
 h1 {
-  margin: 0 !important;
+  margin: 0;
+}
+
+/* Background colour of the input field */
+.v-text-field .v-field {
+  background-color: rgb(var(--v-theme-quaternary));
+}
+
+/* Colour of the bottom line */
+.v-text-field .v-field__outline::after {
+  border-color: rgb(var(--v-theme-tertiary));
 }

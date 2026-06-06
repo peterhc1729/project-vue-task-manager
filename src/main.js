@@ -5,6 +5,7 @@ import * as components from "vuetify/components";
 // Import of all Vuetify directives (e.g. v-ripple, v-resize, etc.)
 import * as directives from "vuetify/directives";
 import "vuetify/styles";
+import "./static/main.css";
 // Import of Material Design Icons for Vuetify icons
 import "@mdi/font/css/materialdesignicons.css";
 import App from "./App.vue";
@@ -30,7 +31,7 @@ const vuetify = createVuetify({
           brandViolett: "#8883e4",
           appGreen2: "#8af361",
           brandGold: "#d9a520",
-          quaternary: "#c0f9be",
+          quaternary: "#e2ffe1",
           brandSilver: "#585858",
           error: "#f63d13",
         },

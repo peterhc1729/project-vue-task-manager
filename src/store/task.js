@@ -11,10 +11,13 @@ export const useTaskStore = defineStore("tasks", {
   actions: {
     // fetching all tasks from Supabase, ordered by id (newest first)
     async fetchTasks() {
-      const { data: tasks } = await supabase
-        .from("tasks")
-        .select("*") // selecting all columns
-        .order("id", { ascending: false }); // newest tasks first
+      const {
+        data: tasks,
+      } = //destructuring
+        await supabase
+          .from("tasks")
+          .select("*") // selecting all columns
+          .order("id", { ascending: false }); // newest tasks first
       this.tasks = tasks;
     },
 
@@ -27,7 +30,7 @@ export const useTaskStore = defineStore("tasks", {
       // inserting the new task with the user's id
       const { data, error } = await supabase
         .from("tasks")
-        .insert([{ title, user_id: user.id }]);
+        .insert([{ title, user_id: user.id, is_complete: false }]);
       if (error) throw error;
       // refreshing the task list after adding
       await this.fetchTasks();

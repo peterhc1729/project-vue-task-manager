@@ -5,8 +5,9 @@ const taskTitle = ref("");
 const emit = defineEmits(["closeDialog", "submitTask"]);
 
 const submitTask = () => {
-  emit("submitTask", taskTitle.value);
-  emit("closeDialog");
+  emit("submitTask", taskTitle.value); //sending taskTitle to Dashboard.vue, which then
+  // calls addTask
+  emit("closeDialog"); //telling parent to close dialog window
 };
 </script>
 
