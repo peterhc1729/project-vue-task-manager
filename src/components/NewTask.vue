@@ -22,7 +22,7 @@ const submitTask = () => {
       />
       <div class="btn-wrapper">
         <!--emit(eventName:string, data:any)-->
-        <v-btn @click="submitTask" color="primary">Submit task</v-btn>
+        <v-btn @click="submitTask" color="primary">Save task</v-btn>
       </div>
 
       <!--"X"-Button to close dialog window-->

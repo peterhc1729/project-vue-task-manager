@@ -1,6 +1,6 @@
 <script setup>
 import { useTaskStore } from "../store/task.js";
-import { computed, ref } from "vue";
+import { ref } from "vue";
 
 // receiving task object from the parent component
 const props = defineProps({
@@ -11,7 +11,7 @@ const props = defineProps({
 });
 
 const isEditing = ref(false);
-const isCompleted = ref(props.task.is_complete);
+const isCompleted = ref(false);
 const taskStore = useTaskStore();
 const editedTitle = ref(props.task.title);
 
@@ -30,28 +30,6 @@ const modifyCheckbox = async () => {
     is_complete: isCompleted.value,
   });
 };
-
-const formattedDateString = computed(() => {
-  const monthsArr = [
-    "JAN",
-    "FEB",
-    "MARCH",
-    "APRIL",
-    "MAY",
-    "JUNE",
-    "JULY",
-    "AUG",
-    "SEPT",
-    "OCT",
-    "NOV",
-    "DEC",
-  ];
-  const yearStr = props.task.created_at.slice(0, 4);
-  const monthStr = monthsArr[parseInt(props.task.created_at.slice(5, 7)) - 1];
-  const dayStr = props.task.created_at.slice(8, 10);
-  const dateStr = `${monthStr} ${dayStr} ${yearStr}`;
-  return dateStr;
-});
 </script>
 
 <template>
@@ -63,42 +41,40 @@ const formattedDateString = computed(() => {
       <template #prepend>
         <!-- Checkbox for completed task -->
         <v-checkbox
-          v-if="!isEditing"
           v-model="isCompleted"
           hide-details
           color="secondary"
-          @update:modelValue="modifyCheckbox"
+          @click="modifyCheckbox"
         />
       </template>
 
       <!-- Task name and date-->
-      <div v-if="!isEditing">
-        <v-list-item-title
-          class="task-text"
-          :class="{ completed: isCompleted }"
-        >
-          {{ task.title }}
-        </v-list-item-title>
+      <v-list-item-title v-if="!isEditing" :class="{ completed: isCompleted }">
+        {{ task.title }}
+      </v-list-item-title>
 
-        <v-list-item-subtitle class="date">
-          {{ formattedDateString }}
-        </v-list-item-subtitle>
-      </div>
-
-      <!--edit mode-->
       <div v-else class="edit-container" style="width: 100%">
         <v-text-field
-          class="task-input"
           v-model="editedTitle"
           label="Edit task title"
           hide-details
         />
 
-        <div class="button-container">
-          <v-btn color="primary" class="save-btn" @click="editTask">
-            Save
+        <div class="date-button-block editing-block">
+          <v-list-item-subtitle class="date">
+            {{ task.created_at }}
+          </v-list-item-subtitle>
+
+          <v-btn color="primary" class="submit-btn" @click="editTask">
+            Submit
           </v-btn>
         </div>
+      </div>
+
+      <div v-if="!isEditing" class="date-button-block">
+        <v-list-item-subtitle class="date">
+          {{ task.created_at }}
+        </v-list-item-subtitle>
       </div>
 
       <!-- Slot to append content to the right of the list item -->
@@ -118,59 +94,70 @@ const formattedDateString = computed(() => {
 </template>
 
 <style scoped>
-/* dynamic class (if isCompleted===true) */
-.completed {
-  /*Strikethrough text for completed tasks*/
-  text-decoration: line-through;
-  text-decoration-color: rgb(var(--v-theme-brandGold));
+.task-card {
+  min-height: 6.7rem;
+  margin-bottom: 0.625rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.5rem;
+  border: 2px solid rgb(var(--v-theme-brandGold)) !important;
+  box-shadow: none !important;
 }
 
-.task-card {
-  border: 2px solid rgb(var(--v-theme-brandGold)) !important;
-  min-height: 6rem;
-  padding: 0.5rem 0;
-  margin-bottom: 0.7rem;
-}
 .task-card * {
   overflow: visible !important;
 }
 
-.task-card.editing {
-  min-height: 6.2rem;
-}
-
-.task-text {
-  font-style: italic;
-}
-
-:deep(.task-input input) {
-  font-style: italic;
+.task-card.editing :deep(.v-list-item) {
+  overflow: visible;
+  padding-bottom: 0.6rem;
 }
 
 .v-list-item-title {
-  font-size: 1.9rem;
-  line-height: 1.6;
-  margin-bottom: 0;
+  font-size: 1.3rem;
 }
 
-.v-checkbox {
-  margin-right: 0.4rem;
+.v-list-item-subtitle {
+  margin-top: -5px;
+}
+
+/*Strikethrough text for completed tasks*/
+.completed {
+  text-decoration: line-through;
+  text-decoration-color: rgb(var(--v-theme-brandGold));
+}
+
+.underneath-textfield {
+  border: 3px solid yellow;
+  display: flex;
+  align-items: center;
+
+  margin-top: -7px;
+  margin-bottom: 0.5rem;
+  gap: 1.5rem;
+}
+
+.date-button-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+  width: 100%;
+}
+
+.editing-block {
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .date {
   align-self: flex-start;
   margin: 0;
-  font-size: 0.6rem;
+  font-size: 0.85rem;
   opacity: 0.7;
 }
 
-.button-container {
-  display: flex;
-  justify-content: center;
+.submit-btn {
   margin-top: 0.5rem;
-}
-
-.save-btn {
-  width: 7rem;
 }
 </style>

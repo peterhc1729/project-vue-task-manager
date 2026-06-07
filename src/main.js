@@ -12,6 +12,7 @@ import App from "./App.vue";
 import router from "./router";
 
 const app = createApp(App);
+const brandWhite = "#fffeff";
 
 // Initialize Vuetify with all components and directives
 
@@ -23,16 +24,18 @@ const vuetify = createVuetify({
     themes: {
       light: {
         colors: {
+          background: brandWhite,
+          surface: brandWhite,
           primary: "#5fffaf",
           secondary: "#18714b",
           tertiary: "#0e2d93",
-          brandWhite: "#fffeff",
+          brandWhite: brandWhite,
           brandBlack: "#000100",
           brandViolett: "#8883e4",
           appGreen2: "#8af361",
           brandGold: "#d9a520",
           quaternary: "#e2ffe1",
-          brandSilver: "#585858",
+          brandSilver: "#d3d0d0",
           error: "#f63d13",
         },
       },

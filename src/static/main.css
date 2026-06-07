@@ -30,7 +30,15 @@ h1 {
   background-color: rgb(var(--v-theme-quaternary));
 }
 
+.v-text-field .v-field__overlay {
+  opacity: 0.1 !important;
+}
+
+/* Font colour of input field */
+.v-text-field .v-field input {
+  color: rgb(var(--v-theme-brandBlack)) !important;
+}
 /* Colour of the bottom line */
 .v-text-field .v-field__outline::after {
-  border-color: rgb(var(--v-theme-tertiary));
+  border-color: rgb(var(--v-theme-brandGold));
 }
