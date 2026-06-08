@@ -103,14 +103,14 @@ const formattedDateString = computed(() => {
 
       <!-- Slot to append content to the right of the list item -->
       <template #append>
-        <!-- Delete button with trash icon -->
-        <v-btn v-if="!isEditing" icon variant="text" @click="deleteTask()">
-          <v-icon>mdi-delete</v-icon>
-        </v-btn>
-
         <!-- Edit button with pencil icon -->
         <v-btn v-if="!isEditing" icon variant="text" @click="isEditing = true">
           <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+
+        <!-- Delete button with trash icon -->
+        <v-btn v-if="!isEditing" icon variant="text" @click="deleteTask()">
+          <v-icon>mdi-delete</v-icon>
         </v-btn>
       </template>
     </v-list-item>
@@ -122,6 +122,7 @@ const formattedDateString = computed(() => {
 .completed {
   /*Strikethrough text for completed tasks*/
   text-decoration: line-through;
+  text-decoration-thickness: 2px;
   text-decoration-color: rgb(var(--v-theme-brandGold));
 }
 
@@ -148,9 +149,9 @@ const formattedDateString = computed(() => {
 }
 
 .v-list-item-title {
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   line-height: 1.6;
-  margin-bottom: 0;
+  margin-top: 0.4rem;
 }
 
 .v-checkbox {

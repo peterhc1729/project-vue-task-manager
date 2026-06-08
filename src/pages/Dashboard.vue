@@ -81,7 +81,7 @@ const filteredTasks = computed(() => {
 
 <style scoped>
 .clipboard {
-  background-color: rgb(229, 176, 140);
+  background-color: rgb(var(--v-theme-brandWhite));
   position: relative;
   border-radius: 8px 8px 0 0;
   padding: 2rem 1.5rem 2rem;

@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import piniaPersist from "pinia-plugin-persist";
 import { createVuetify } from "vuetify";
 import * as components from "vuetify/components";
 // Import of all Vuetify directives (e.g. v-ripple, v-resize, etc.)
@@ -36,17 +37,24 @@ const vuetify = createVuetify({
           brandGold: "#d9a520",
           quaternary: "#e2ffe1",
           brandSilver: "#d3d0d0",
-          error: "#f63d13",
+          appOrange: "#FF5F00",
+          error: "#d20101",
         },
       },
     },
   },
 });
 
+// Initializing Pinia and registering the persist plugin for localStorage support
+const pinia = createPinia();
+pinia.use(piniaPersist);
+
 // registering Pinia for state management
-app.use(createPinia());
+app.use(pinia);
+
 // registering Vue Router for navigation
 app.use(router);
+
 // register Vuetify for UI components
 app.use(vuetify);
 
