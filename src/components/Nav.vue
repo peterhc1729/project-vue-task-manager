@@ -21,10 +21,6 @@ const signOut = async () => {
 };
 </script>
 
-<template>
-  <div class="mt-4 mr-7 d-flex justify-end">
-    <v-btn variant="text" color="brandGold" @click="signOut"> Sign out </v-btn>
-  </div>
-</template>
+<template></template>
 
 <style scoped></style>

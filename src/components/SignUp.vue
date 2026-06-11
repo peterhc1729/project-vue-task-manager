@@ -57,7 +57,7 @@ const signUp = async () => {
         @click="signUp"
         :disabled="loading"
       >
-        {{ loading ? "Loading..." : "Sign up" }}
+        {{ loading ? "Loading..." : "Create account" }}
       </v-btn>
     </v-form>
   </div>

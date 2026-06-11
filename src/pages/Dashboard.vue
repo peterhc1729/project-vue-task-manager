@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
-import Nav from "../components/Nav.vue";
+
+import AppHeader from "../components/AppHeader.vue";
 import TaskItem from "../components/TaskItem.vue";
 import NewTask from "../components/NewTask.vue";
 import { useTaskStore } from "../store/task.js";
@@ -30,7 +31,7 @@ const filteredTasks = computed(() => {
 </script>
 
 <template>
-  <Nav />
+  <AppHeader />
 
   <div class="clipboard">
     <h1 class="title">MY TO-DO LIST</h1>
@@ -91,7 +92,8 @@ const filteredTasks = computed(() => {
 }
 
 .title {
-  margin-top: 0.5em;
+  margin-top: 0.5rem;
+  margin-bottom: 1.7rem;
   text-align: center;
   font-weight: bold;
   font-size: 2.5rem;

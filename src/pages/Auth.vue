@@ -1,5 +1,5 @@
 <script setup>
-import taskManagerAd from "../assets/TaskManagerAd.png";
+import taskManagerAd from "../assets/ihtm-ad.png";
 import SignUp from "../components/SignUp.vue";
 import SignIn from "../components/SignIn.vue";
 import { ref } from "vue";
@@ -10,7 +10,7 @@ const authView = ref(0); // 0 = SignIn, 1 = SignUp
 <template>
   <div class="page-layout">
     <!--left side of page for SignIn and SignOut-->
-    <v-container>
+    <div class="auth-side">
       <v-card>
         <!-- v-card-text adds default padding-->
         <v-card-text>
@@ -44,7 +44,7 @@ const authView = ref(0); // 0 = SignIn, 1 = SignUp
           </v-window>
         </v-card-text>
       </v-card>
-    </v-container>
+    </div>
 
     <!-- Right half: App ad graphic-->
     <div class="hero-image">
@@ -59,10 +59,11 @@ const authView = ref(0); // 0 = SignIn, 1 = SignUp
   width: 100%;
 }
 
-.v-container {
+.auth-side {
+  border-right: solid 1.5px rgb(var(--v-theme-brandGold));
   display: flex;
   justify-content: flex-start;
-  width: 38vw;
+  width: 28vw;
   min-height: 100vh;
   padding-top: 6rem;
   margin: 0;
@@ -71,11 +72,12 @@ const authView = ref(0); // 0 = SignIn, 1 = SignUp
 .v-card {
   width: 100%;
   max-width: 420px;
-  height: 62vh;
+  height: 89vh;
   box-shadow: none !important;
 }
 
 .v-card-text {
+  border: 2px solid crimson;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -123,20 +125,20 @@ const authView = ref(0); // 0 = SignIn, 1 = SignUp
   display: flex;
   width: 100vw;
   min-height: 100vh;
+  align-items: stretch;
 }
 
 .hero-image {
-  width: 50vw;
-  height: 100vh;
+  width: 72vw;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
 }
 
 .hero-image img {
-  height: 100vh;
-  width: auto;
-  object-fit: contain;
-  transform: translateX(-120px);
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 </style>

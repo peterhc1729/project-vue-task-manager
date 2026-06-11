@@ -49,7 +49,7 @@ const signIn = async () => {
         @click="signIn"
         :disabled="loading"
       >
-        {{ loading ? "Loading..." : "Sign in" }}
+        {{ loading ? "Loading..." : "Log in" }}
       </v-btn>
     </v-form>
   </div>

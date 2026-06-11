@@ -57,7 +57,12 @@ const formattedDateString = computed(() => {
 <template>
   <!-- A single Todo-Card -->
   <!--dynamic CSS class- is active, if isEditing is true-->
-  <v-card class="task-card" :class="{ editing: isEditing }">
+  <!-- elevation="0" -> no shadow -->
+  <v-card
+    class="task-card"
+    :class="{ editing: isEditing, 'completed-card': isCompleted }"
+    elevation="0"
+  >
     <v-list-item>
       <!-- Slot to prepend content to the left of the list item -->
       <template #prepend>
@@ -138,6 +143,10 @@ const formattedDateString = computed(() => {
 
 .task-card.editing {
   min-height: 6.2rem;
+}
+
+.task-card.completed-card {
+  border: 2px solid rgb(var(--v-theme-quinary)) !important;
 }
 
 .task-text {
