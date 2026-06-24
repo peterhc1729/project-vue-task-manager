@@ -6,27 +6,24 @@ via dynamic import (code splitting by route) */
 const Dashboard = () => import("../pages/Dashboard.vue");
 const Auth = () => import("../pages/Auth.vue");
 
-const routes = [
-  {
-    path: "/",
-    component: Dashboard,
-    meta: { requiresAuth: true }, // only accessible to authenticated users
-  },
-  {
-    path: "/auth",
-    component: Auth,
-  },
-];
-
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: "/",
+      component: Dashboard,
+      meta: { requiresAuth: true }, // only accessible to authenticated users
+    },
+    {
+      path: "/auth",
+      component: Auth,
+    },
+  ],
 });
 
 /* Navigation guard: runs before every route change,
 protects routes and redirects based on auth state*/
 router.beforeEach(async (to, from, next) => {
-
   // getSession() fetches the session locally from storage
   const {
     data: { session },
