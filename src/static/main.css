@@ -1,10 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
 
-:root {
-  --app-colour: #5fffaf;
-}
-
 *,
 *::before,
 *::after {
@@ -25,6 +21,40 @@ h1 {
   margin: 0;
 }
 
+.graph-paper-bg {
+  min-height: 100vh;
+  height: auto;
+  background-color: color-mix(in srgb, rgb(174, 237, 255) 25%, white);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(14, 45, 147, 0.22) 0px,
+      rgba(42, 77, 190, 0.22) 1px,
+      transparent 1px,
+      transparent 24px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(14, 45, 147, 0.22) 0px,
+      rgba(14, 45, 147, 0.22) 1px,
+      transparent 1px,
+      transparent 24px
+    );
+}
+
+.stripes-bg {
+  min-height: 100vh;
+  height: auto;
+  background-color: rgba(106, 110, 125, 0.1);
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(195, 130, 25, 0.07) 0px,
+    rgba(209, 233, 22, 0.07) 1.5px,
+    transparent 3px,
+    transparent 6px
+  );
+}
+
 /* Background colour of the input field */
 .v-text-field .v-field {
   background-color: rgb(var(--v-theme-quaternary));
@@ -41,4 +71,48 @@ h1 {
 /* Colour of the bottom line */
 .v-text-field .v-field__outline::after {
   border-color: rgb(var(--v-theme-brandGold));
+}
+
+.v-btn:not(.v-btn--variant-text) {
+  background-color: rgb(var(--v-theme-primary));
+  height: 2.3rem;
+  min-width: 48px;
+  font-size: 1rem;
+  color: rgb(var(--v-theme-tertiary));
+  font-weight: 500;
+}
+
+@media (max-width: 599px) {
+  .v-btn:not(.v-btn--variant-text) {
+    max-width: 7rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .v-btn:not(.v-btn--variant-text) {
+    padding: 0 24px;
+  }
+}
+
+/* Only text-variant Buttons */
+.v-btn--variant-text {
+  font-weight: 400;
+}
+
+@media (max-width: 599px) {
+  .v-btn--variant-text {
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 600px) and (max-width: 959px) {
+  .v-btn--variant-text {
+    font-size: 0.8rem;
+  }
+}
+
+@media (min-width: 960px) {
+  .v-btn--variant-text {
+    font-size: 0.9rem;
+  }
 }

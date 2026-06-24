@@ -23,8 +23,8 @@ src/
 ├── static/
 │ └── main.css # Global styles
 ├── components/
-│ ├── AppHeader.vue # Top navigation bar
-│ ├── Nav.vue # Navigation links
+│ ├── AppHeader.vue # Top bar (on start page)
+│ ├── Nav.vue # Navigation bar (in dashboard)
 │ ├── NewTask.vue # Form to add a new task
 │ ├── SignIn.vue # Sign in form
 │ ├── SignUp.vue # Sign up form with validation

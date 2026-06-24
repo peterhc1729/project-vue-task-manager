@@ -5,33 +5,36 @@ const taskTitle = ref("");
 const emit = defineEmits(["closeDialog", "submitTask"]);
 
 const submitTask = () => {
-  emit("submitTask", taskTitle.value); //sending taskTitle to Dashboard.vue, which then
-  // calls addTask
-  emit("closeDialog"); //telling parent to close dialog window
+  if (!taskTitle.value.trim()) return; // no empty tasks get submitted
+
+  // Send task title to Dashboard.vue, which then calls addTask
+  emit("submitTask", taskTitle.value);
+
+  taskTitle.value = "";
+
+  // Tell parent to close the dialog window
+  emit("closeDialog");
 };
 </script>
 
 <template>
   <div class="new-task">
-    <v-form>
-      <!-- Input field, two-way-synchronization of "taskTitle through "v-model"-->
+    <v-form @submit.prevent="submitTask">
       <v-text-field
-        label="Type in your task"
         v-model="taskTitle"
+        label="Type in your task"
         base-color="brandGold"
+        hide-details
       />
       <div class="btn-wrapper">
-        <!--emit(eventName:string, data:any)-->
-        <v-btn @click="submitTask" color="primary">Save task</v-btn>
+        <v-btn color="primary" class="save-btn" type="submit">Save task</v-btn>
       </div>
-
-      <!--"X"-Button to close dialog window-->
       <v-btn
         icon
-        size="x-small"
+        size="small"
         variant="text"
-        @click="emit('closeDialog')"
         class="close-btn"
+        @click="emit('closeDialog')"
       >
         <v-icon size="small">mdi-close</v-icon>
       </v-btn>
@@ -42,14 +45,48 @@ const submitTask = () => {
 <style scoped>
 .new-task {
   background-color: white;
-  padding: 2rem;
-  border-radius: 5px;
-  position: relative; /* ← Anchor for absolute positioning */
+  padding: 2.5rem 2rem 2rem 2rem;
+  border-radius: 12px;
+
+  /* Anchor for .close-btn absolute positioning */
+  position: relative;
+  border: 2px solid rgb(var(--v-theme-brandGold)) !important;
 }
 
 .close-btn {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
+  top: 0.6rem;
+  right: 0.6rem;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+
+  /* gap between Input and Button */
+  margin-top: 1.5rem;
+}
+
+.save-btn {
+  font-weight: bold !important;
+  width: 10rem;
+  border-radius: 6px !important;
+}
+
+/* xs only: mobile views (< 600px) */
+@media (max-width: 599px) {
+  .new-task {
+    padding: 3rem 1.2rem 1.5rem 1.2rem;
+  }
+
+  .close-btn {
+    top: 0.4rem;
+    right: 0.4rem;
+  }
+
+  .save-btn {
+    width: 100%;
+    max-width: 200px;
+  }
 }
 </style>

@@ -1,18 +1,20 @@
 <script setup>
 import { computed, ref, onMounted } from "vue";
-
-import AppHeader from "../components/AppHeader.vue";
+import Nav from "../components/Nav.vue";
 import TaskItem from "../components/TaskItem.vue";
 import NewTask from "../components/NewTask.vue";
 import { useTaskStore } from "../store/task.js";
 
+const FILTER_OPTIONS = ["All", "Completed", "Incomplete"];
 // Current value of dropdown; "All" as default
-const taskFilter = ref("All");
+const taskFilter = ref(FILTER_OPTIONS[0]);
+
 const showDialog = ref(false);
 const taskStore = useTaskStore();
 
 const addTask = async (taskTitle) => {
   await taskStore.addTask(taskTitle);
+  showDialog.value = false; // closes dialog as soon as task is saved
 };
 
 // fetching tasks from Supabase when the component mounts
@@ -31,94 +33,143 @@ const filteredTasks = computed(() => {
 </script>
 
 <template>
-  <AppHeader />
+  <Nav />
 
-  <div class="clipboard">
+  <div class="stripes-bg">
     <h1 class="title">MY TO-DO LIST</h1>
-    <v-container>
-      <!-- Second line: button and filter menu-->
+
+    <v-container fluid>
       <div class="button-filter-block">
-        <v-row class="mb-0">
-          <!-- Button occupies 3 out of 12 grid columns (left side) -->
-          <v-col cols="3" class="add-button-col">
-            <v-btn class="w-100" color="primary" @click="showDialog = true"
-              >Add new task</v-btn
-            >
-          </v-col>
-          <!-- Filter takes 3 out of 12 grid columns, offset by 6 columns (right side) -->
-          <v-col cols="3" offset="6" class="filter-menu-col">
-            <!-- Dropdown containing three options; "compact" makes dropdown smaller-->
-            <v-select
-              class="dropdown-menu"
-              :items="['All', 'Completed', 'Incomplete']"
-              v-model="taskFilter"
-              density="compact"
-            />
-          </v-col>
-        </v-row>
+        <v-btn class="add-task-btn" @click="showDialog = true">
+          Add new task
+        </v-btn>
+
+        <v-select
+          v-model="taskFilter"
+          class="dropdown-menu"
+          :items="FILTER_OPTIONS"
+          density="compact"
+          hide-details
+        />
       </div>
 
-      <!--task list -->
-      <!--"n2": NEGATIVE margin-top-->
-      <v-row class="mt-n2">
-        <v-col>
-          <v-list class="task-list">
-            <TaskItem
-              v-for="task in filteredTasks"
-              :key="task.id"
-              :task="task"
-            />
-          </v-list>
+      <v-row class="mt-n2" no-gutters>
+        <v-col
+          v-for="task in filteredTasks"
+          :key="task.id"
+          cols="12"
+          class="pa-0"
+        >
+          <TaskItem :task="task" />
         </v-col>
       </v-row>
     </v-container>
-  </div>
 
-  <!-- Dialog -->
-  <v-dialog max-width="700" v-model="showDialog">
-    <NewTask @closeDialog="showDialog = false" @submitTask="addTask" />
-  </v-dialog>
+    <v-dialog
+      v-model="showDialog"
+      max-width="700"
+      content-class="new-task-dialog"
+    >
+      <NewTask @close-dialog="showDialog = false" @submit-task="addTask" />
+    </v-dialog>
+  </div>
 </template>
 
 <style scoped>
-.clipboard {
-  background-color: rgb(var(--v-theme-brandWhite));
-  position: relative;
-  border-radius: 8px 8px 0 0;
-  padding: 2rem 1.5rem 2rem;
-  margin: 2rem auto;
-  min-height: 97vh;
-  max-width: 900px;
-}
-
 .title {
-  margin-top: 0.5rem;
-  margin-bottom: 1.7rem;
+  line-height: 1;
   text-align: center;
   font-weight: bold;
-  font-size: 2.5rem;
-}
-
-.add-button-col {
-  display: flex;
-  align-self: flex-end;
-  margin-bottom: 1.6rem;
-}
-
-.filter-menu-col {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
 }
 
 .button-filter-block {
   display: flex;
-  align-self: flex-end;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+
+  /* Wraps items into the next line on small screens to prevent layout breaking */
+  flex-wrap: wrap;
 }
 
-.task-list {
-  margin: 0;
-  padding: 0;
-  background: transparent;
+.dropdown-menu {
+  width: 12rem !important;
+  min-width: 0 !important;
+
+  /* prevents Flexbox from shrinking */
+  flex-shrink: 0;
+
+  /* prevents "space-between" from making the dropdown grow*/
+  flex-grow: 0 !important;
+}
+
+:deep(.v-select__selection-text) {
+  font-size: 0.9rem;
+}
+
+:deep(.new-task-dialog) {
+  margin-top: 12vh;
+  align-self: flex-start;
+}
+
+/* xs only: (< 600px) */
+@media (max-width: 599px) {
+  .title {
+    font-size: 1.6rem;
+    margin-top: 2rem;
+    margin-bottom: 1.6rem;
+  }
+
+  :deep(.v-container) {
+    padding: 0 2rem !important;
+  }
+
+  .dropdown-menu {
+    width: 8.7rem !important;
+  }
+
+  .button-filter-block {
+    align-items: center;
+  }
+}
+
+/* sm: view for tablets (600px – 959px) */
+@media (min-width: 600px) and (max-width: 959px) {
+  :deep(.v-container) {
+    padding: 0 10vw !important;
+  }
+
+  .title {
+    font-size: 2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1.9rem;
+  }
+}
+
+/* md: view for middle-sized devices (960px – 1279px) */
+@media (min-width: 960px) and (max-width: 1279px) {
+  .title {
+    margin-top: 4rem;
+    margin-bottom: 1.7rem;
+    font-size: 2.5rem;
+  }
+
+  :deep(.v-container) {
+    padding: 0 7rem !important;
+  }
+}
+
+/* lg: desktop view (default) (>= 1280px) */
+@media (min-width: 1280px) {
+  .title {
+    margin-top: 4rem;
+    margin-bottom: 1.7rem;
+    font-size: 2.5rem;
+  }
+
+  :deep(.v-container) {
+    padding: 0 10rem !important;
+  }
 }
 </style>

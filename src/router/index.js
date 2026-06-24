@@ -1,27 +1,49 @@
 import { createRouter, createWebHistory } from "vue-router";
-import Dashboard from "../pages/Dashboard.vue";
-import Auth from "../pages/Auth.vue";
+import { supabase } from "../supabase";
 
-// Define the routes for the app
+/* Lazy loading: pages are only loaded when needed,
+via dynamic import (code splitting by route) */
+const Dashboard = () => import("../pages/Dashboard.vue");
+const Auth = () => import("../pages/Auth.vue");
+
 const routes = [
   {
-    // Root route - displays the Dashboard after login
     path: "/",
     component: Dashboard,
+    meta: { requiresAuth: true }, // only accessible to authenticated users
   },
   {
-    // Auth route - displays the Sign In / Sign Up forms
     path: "/auth",
     component: Auth,
   },
 ];
 
-// Create the router instance with HTML5 history mode
 const router = createRouter({
-  // createWebHistory enables clean URLs without # (e.g. /auth instead of /#/auth)
   history: createWebHistory(),
   routes,
 });
 
-// Export the router so it can be registered in main.js
+/* Navigation guard: runs before every route change,
+protects routes and redirects based on auth state*/
+router.beforeEach(async (to, from, next) => {
+
+  // getSession() fetches the session locally from storage
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  const isLoggedIn = !!session?.user;
+
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    // Guard: route requires auth but user is not logged in -> redirect to /auth
+    next("/auth");
+  } else if (to.path === "/auth" && isLoggedIn) {
+    // Guard: user is already logged in -> redirect to /
+    next("/");
+  } else {
+    // Guard passed -> proceed normally
+    next();
+  }
+});
+
 export default router;

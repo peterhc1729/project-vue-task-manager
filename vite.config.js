@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 export default defineConfig({
-  // activate Vue plugin
-  plugins: [vue()],
+  plugins: [vue()], // activate Vue plugin
+
+  base: "/peterhc1729/",
 });
