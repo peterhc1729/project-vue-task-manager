@@ -17,7 +17,6 @@ import logo from "../assets/heptagon-ih-taskmanager.svg";
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: url("../assets/appHeaderBg.png");
 }
 
 .logo {
