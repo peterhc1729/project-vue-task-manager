@@ -1,7 +1,7 @@
 <script setup>
-import adLarge from "../assets/adLg.png";
-import adMd from "../assets/adMd.png";
-import wallPaperSm from "../assets/wallpaper-Sm.png";
+import adLarge from "../assets/ad-large.png";
+import adMd from "../assets/ad-md.png";
+import wallPaperSm from "../assets/wallpaper-sm.png";
 import AppHeader from "../components/AppHeader.vue";
 import SignUp from "../components/SignUp.vue";
 import SignIn from "../components/SignIn.vue";
