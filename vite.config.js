@@ -5,5 +5,5 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [vue()], // activate Vue plugin
 
-  base: "/peterhc1729/",
+  base: "/project-vue-task-manager/",
 });
