@@ -16,13 +16,15 @@ export const useUserStore = defineStore("user", {
   actions: {
     // Fetches the currently logged-in user from Supabase
     async fetchUser() {
-      try {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        this.user = user;
-      } catch (error) {
+      // directly checking the error-object from the Response
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser();
+      if (error || !user) {
         this.user = null;
+      } else {
+        this.user = user;
       }
     },
 
@@ -60,16 +62,5 @@ export const useUserStore = defineStore("user", {
       if (error) throw error;
       this.user = null;
     },
-  },
-
-  // Persists user to localStorage so the session survives page reloads
-  persist: {
-    enabled: true,
-    strategies: [
-      {
-        key: "user",
-        storage: localStorage,
-      },
-    ],
   },
 });

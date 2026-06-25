@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { supabase } from "../supabase";
+import { useUserStore } from "./user";
 
 export const useTaskStore = defineStore("tasks", {
   // Initial state: tasks is null until fetched from Supabase
@@ -10,24 +11,29 @@ export const useTaskStore = defineStore("tasks", {
   actions: {
     // Fetches all tasks from Supabase, ordered by id (newest first)
     async fetchTasks() {
-      const { data: tasks } = await supabase
+      // object from Supabase:
+      //destructuring: 1. const tasks = object.data; 2. const error = object.error;
+      const { data: tasks, error } = await supabase
         .from("tasks")
         .select("*")
         .order("id", { ascending: false });
+
+      if (error) throw error;
       this.tasks = tasks;
     },
 
     // Adds a new task to Supabase
     async addTask(title) {
-      // Get the currently logged-in user
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+      // Getting the currently logged-in user directly from the Pinia User-Store
+      const userStore = useUserStore();
+      const userId = userStore.user?.id;
+
+      if (!userId) throw new Error("No user logged in to add tasks.");
 
       // inserting the new task with the user's id
       const { error } = await supabase
         .from("tasks")
-        .insert([{ title, user_id: user.id, is_complete: false }]);
+        .insert([{ title, user_id: userId, is_complete: false }]);
       if (error) throw error;
       await this.fetchTasks();
     },
