@@ -28,9 +28,17 @@ export const useUserStore = defineStore("user", {
 
     // Signs up a new user with email and password
     async signUp(email, password) {
+      /* Dynamically generates the URL with '#', whether we are testing 
+   locally or the app is live on GitHub Pages */
+      const redirectUrl =
+        window.location.origin + window.location.pathname + "#/auth";
+
       const { data, error } = await supabase.auth.signUp({
         email: email,
         password: password,
+        options: {
+          emailRedirectTo: redirectUrl, // Passes the hash URL to Supabase for the email link
+        },
       });
       if (error) throw error;
       if (data.user) this.user = data.user;
