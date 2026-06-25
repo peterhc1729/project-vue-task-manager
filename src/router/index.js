@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import { supabase } from "../supabase";
 
 /* Lazy loading: pages are only loaded when needed,
@@ -7,7 +7,9 @@ const Dashboard = () => import("../pages/Dashboard.vue");
 const Auth = () => import("../pages/Auth.vue");
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  /* Hash history is required for GitHub Pages to prevent 404 errors on refresh.
+   It keeps the routing client-side by appending a '#' to the URL. */
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: "/",
