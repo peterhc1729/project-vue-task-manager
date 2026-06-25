@@ -1,6 +1,6 @@
 <script setup>
 import adLarge from "../assets/ad-large.png";
-import adMd from "../assets/ad-md.png";
+import adMd from "../assets/ad-md-new.png";
 import wallPaperSm from "../assets/wallpaper-sm.png";
 import AppHeader from "../components/AppHeader.vue";
 import SignUp from "../components/SignUp.vue";
@@ -106,7 +106,7 @@ const emailRules = [
 
 /* lg: desktop view (default) */
 .auth-side {
-  width: 27vw;
+  width: 28vw;
   min-width: 290px;
   flex-shrink: 1;
   border-right: solid 1.6px rgb(var(--v-theme-brandGold));
@@ -141,7 +141,7 @@ const emailRules = [
   /* fills out the entire remaining space */
   flex-grow: 1;
 
-  width: 73vw;
+  width: 72vw;
   height: auto;
   overflow: hidden;
 }
@@ -218,7 +218,12 @@ const emailRules = [
 /* md: view for middle-sized devices (960px – 1279px) */
 @media (min-width: 960px) and (max-width: 1279px) {
   .auth-side {
+    width: 30vw;
     padding-top: 5rem;
+  }
+
+  .hero-image {
+    width: 70vw;
   }
 
   .hero-image img {
