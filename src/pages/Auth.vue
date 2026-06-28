@@ -102,6 +102,7 @@ const emailRules = [
   width: 100%;
   min-height: 100vh;
   align-items: stretch;
+  overflow-x: hidden;
 }
 
 /* lg: desktop view (default) */
